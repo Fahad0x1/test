@@ -49,29 +49,36 @@
             <h1>{{ section_name }}</h1>
             <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Back</a>
         </div>
-        <div class="row g-3 justify-content-center">
+       <div class="row g-3">
     {% for ent in entities %}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             {% if ent.entity_id.startswith('camera.') %}
-                <div class="w-100 mb-3">
-                    <video controls autoplay muted width="100%" style="border-radius: 10px;">
+                <!-- بطاقة الكاميرا -->
+                <div class="card">
+                    <video controls autoplay muted class="card-img-top">
                         <source src="{{ session['ha_url'] }}/api/camera_proxy_stream/{{ ent.entity_id }}?token={{ session['ha_token'] }}" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
-                    <p class="text-center mt-1">{{ ent.name }}</p>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ ent.name }}</h5>
+                    </div>
                 </div>
+            {% elif ent.entity_id.startswith('script.') %}
+                <!-- زر سكربت -->
+                <button class="btn btn-success w-100 mb-2" data-name="{{ ent.name }}" onclick="runScript('{{ ent.entity_id }}', this)">
+                    {{ ent.name }}
+                </button>
             {% else %}
-                <button id="{{ ent.entity_id }}"
-                        data-name="{{ ent.name }}"
-                        class="btn {% if ent.state == 'on' or ent.state=='open' or ent.state=='unlocked' %}btn-warning{% else %}btn-secondary{% endif %} btn-lg w-100"
+                <!-- زر toggle -->
+                <button class="btn {% if ent.state in ['on','open','unlocked'] %}btn-warning{% else %}btn-secondary{% endif %} w-100 mb-2" 
+                        data-name="{{ ent.name }}" id="{{ ent.entity_id }}"
                         onclick="toggleEntity('{{ ent.entity_id }}', this)">
-                    {{ ent.name }} - {% if ent.state == 'on' or ent.state=='open' or ent.state=='unlocked' %}ON{% else %}OFF{% endif %}
+                    {{ ent.name }} - {% if ent.state in ['on','open','unlocked'] %}ON{% else %}OFF{% endif %}
                 </button>
             {% endif %}
         </div>
     {% endfor %}
 </div>
 
-
+    </div>
 </body>
 </html>

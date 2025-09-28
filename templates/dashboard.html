@@ -7,7 +7,7 @@
 </head>
 <body class="bg-light">
     <div class="container py-5">
-        <h1 class="text-center mb-5">Smart Home</h1>
+        <h1 class="text-center mb-5">Panel</h1>
         <div class="row justify-content-center g-4">
             {% for section in sections %}
             <div class="col-6 col-sm-4 col-md-3 text-center">
@@ -16,6 +16,8 @@
                         <i class="bi 
                         {% if section == 'Lights' %}bi-lightbulb-fill
                         {% elif section == 'Curtains' %}bi-windows
+ 
+                        {% elif section == 'Locks' %}bi-lock-fill
                         {% elif section == 'Doors' %}bi-door-open-fill
                         {% elif section == 'ACs' %}bi-thermometer
                         {% elif section == 'TV' %}bi-tv-fill
