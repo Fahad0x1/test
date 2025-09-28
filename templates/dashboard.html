@@ -1,39 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home Assistant Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Smart Home Dashboard</title>
+
+<!-- Bootstrap & Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  body { background:#f8f9fa; }
+  .section-card {
+    border-radius: 1rem;
+    padding: 3rem 0;
+    transition: transform 0.15s ease;
+    cursor: pointer;
+  }
+  .section-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  }
+  .section-icon { font-size: 5rem; color: #0d6efd; }
+  .section-title { font-size: 1.25rem; font-weight: 600; margin-top: 1rem; }
+  .footer-links a { text-decoration: none; color: #0d6efd; font-weight: 500; }
+</style>
 </head>
-<body class="bg-light">
-    <div class="container py-5">
-        <h1 class="text-center mb-5">Panel</h1>
-        <div class="row justify-content-center g-4">
-            {% for section in sections %}
-            <div class="col-6 col-sm-4 col-md-3 text-center">
-                <a href="{{ url_for('section', section_name=section) }}" class="text-decoration-none">
-                    <div class="card shadow py-4">
-                        <i class="bi 
-                        {% if section == 'Lights' %}bi-lightbulb-fill
-                        {% elif section == 'Curtains' %}bi-windows
- 
-                        {% elif section == 'Locks' %}bi-lock-fill
-                        {% elif section == 'Doors' %}bi-door-open-fill
-                        {% elif section == 'ACs' %}bi-thermometer
-                        {% elif section == 'TV' %}bi-tv-fill
-                        {% elif section == 'Cameras' %}bi-camera-video-fill
-                        {% endif %}" 
-                        style="font-size: 3rem;"></i>
-                        <h5 class="mt-3">{{ section }}</h5>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
+<body>
+<div class="container py-4">
+  <h1 class="text-center mb-4 fw-bold">Smart Home</h1>
+  <div class="row justify-content-center g-4">
+    {% for section in sections %}
+    <div class="col-6 col-sm-4 col-md-3 text-center">
+      <a href="{{ url_for('section', section_name=section) }}" class="text-decoration-none">
+        <div class="card shadow-sm section-card">
+          <i class="bi
+            {% if section == 'Lights' %}bi-lightbulb-fill
+            {% elif section == 'Curtains' %}bi-windows
+            {% elif section == 'Doors' %}bi-door-open-fill
+            {% elif section == 'ACs' %}bi-thermometer
+            {% elif section == 'TV' %}bi-tv-fill
+            {% elif section == 'Cameras' %}bi-camera-video-fill
+          {% endif %} section-icon"></i>
+          <div class="section-title text-dark">{{ section }}</div>
         </div>
-        <!-- Footer: Support -->
-        <div class="text-center mt-5">
-            <a href="https://6degrees.com.sa/en" target="_blank">Support</a> &nbsp; @fahad
-        </div>
+      </a>
     </div>
+    {% endfor %}
+  </div>
+
+  <div class="footer-links text-center mt-5">
+    <a href="https://6degrees.com.sa/en" target="_blank">Support</a> &nbsp; @fahad
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
