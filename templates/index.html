@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lights Control</title>
+</head>
+<body>
+    <h1>Lights Control</h1>
+    <ul>
+        {% for light in lights %}
+        <li>
+            {{ light.name }} - 
+            {% if light.state %}
+                ON
+            {% else %}
+                OFF
+            {% endif %}
+            <a href="{{ url_for('toggle', entity_id=light.entity_id) }}">Toggle</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
